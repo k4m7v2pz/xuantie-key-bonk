@@ -1,0 +1,6 @@
+dist/
+*.exe
+*.ll
+*.o
+tiepm_modules/
+XuanTie-Lang/
