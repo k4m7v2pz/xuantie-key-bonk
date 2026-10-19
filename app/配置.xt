@@ -1,0 +1,24 @@
+// 配置.xt — config.ini 读写（对照 C++ main.cpp 读取 + main_window.cpp 的写回）
+//
+// C++ 用 Windows INI API：
+//   读 [record] win-x/win-y(默认100)、mute/mute-m(默认0)；[settings] lib(默认 .\bin\default)
+//   写 WM_CLOSE 落 win-x/win-y；WM_DESTROY 落 mute/mute-m。
+// 玄铁无 INI 内建，本版先定签名与默认值，键值解析/写回 M1 自写（文件.读/写 + 简单段键解析）。
+
+引 "./状态.xt" 予 状态
+
+// 默认值（对照 C++ GetPrivateProfileInt 的缺省参数）
+设 默认窗口X = 100
+设 默认窗口Y = 100
+
+// 加载 config.ini 并填入状态（对照启动时 GetPrivateProfileInt/String）
+// TODO(M1)：文件.读 ini，解析 [record] win-x/win-y/mute/mute-m、[settings] lib；
+// 缺省：win-x=100、win-y=100、mute=0、mute-m=0、lib="./bin/default"。
+公 函 加载(ini路径: 字) {
+    // 占位：解析成功后 状态.设键盘静音(..)、状态.设鼠标静音(..)、状态.设音频库路径(lib)
+}
+
+// 保存 config.ini（对照 WM_CLOSE 写位置、WM_DESTROY 写静音）
+// TODO(M1)：保留其它段，仅回写 [record] win-x/win-y/mute/mute-m。
+公 函 保存(ini路径: 字, 窗口X: 整, 窗口Y: 整, 键盘静音: 逻辑, 鼠标静音: 逻辑) {
+}

@@ -1,0 +1,18 @@
+// 随机.xt — 随机整数（对照 C++ functions/randnum.cpp 的 random::getInt）
+//
+// C++ 用 mt19937 + uniform_int_distribution[min,max]；玄铁直接用渲染库
+// R.取随机数(min,max)（含两端闭区间），语义对齐。getDouble 本软件未使用，不搬。
+
+引 "渲染" 予 R
+
+// 取 [min, max] 闭区间均匀随机整数；min>max 时交换（对照 C++ 的 swap）
+公 函 取整数(min: 整, max: 整): 整 {
+    设 下 = min
+    设 上 = max
+    若 下 > 上 {
+        设 临时 = 下
+        下 = 上
+        上 = 临时
+    }
+    返 R.取随机数(下, 上)
+}

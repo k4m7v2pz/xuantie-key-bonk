@@ -1,0 +1,32 @@
+// 输入.xt — 按键/鼠标事件的业务处理（对照 C++ hook/keyboard_hook.cpp、hook/mouse_hook.cpp）
+//
+// 注意：C++ 的 SetWindowsHookExW(WH_KEYBOARD_LL/WH_MOUSE_LL)、LowLevelXxxProc 回调、
+// CallNextHookEx 全是 Windows 低级钩子 API，macOS 无法照搬，改用 CGEventTap + 辅助功能权限。
+// 本文件只直译"事件到来后做什么"的业务判断；钩子安装/事件捕获是平台层，见主函数占位。
+
+引 "./状态.xt" 予 状态
+引 "./播放.xt" 予 播放
+引 "./随机.xt" 予 随机
+
+// 鼠标随机音效池（对照 mouse_hook.cpp 写死的 int audioList[] = {74,77,78,84}）
+设 鼠标音效池 = [74, 77, 78, 84]
+
+// 键盘按下事件（对照 LowLevelKeyboardProc：WM_KEYDOWN 且 !Mute → PlayAudioFile(vkCode)）
+// vkCode：Windows 虚拟键码；macOS 层换算后再调用本函数。
+公 函 键盘按下(vk: 整) {
+    若 状态.取键盘静音() {
+        返
+    }
+    播放.播放按键(vk)
+}
+
+// 鼠标按键按下事件（对照 LowLevelMouseProc：LBUTTONDOWN/RBUTTONDOWN 且 !MuteMouse → 池内随机播放）
+// 左键/右键都触发；具体键值由平台层判定后传入。
+公 函 鼠标按下() {
+    若 状态.取鼠标静音() {
+        返
+    }
+    设 索引 = 随机.取整数(0, 鼠标音效池.长度 - 1)
+    设 vk = 鼠标音效池[索引]
+    播放.播放按键(vk)
+}

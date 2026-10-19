@@ -1,0 +1,14 @@
+// 日志.xt — log.txt UTF-8 追加日志（对照 C++ debug.cpp / debug.hpp 的 logOutput）
+//
+// C++ 以 wofstream app 模式追加、UTF-8 locale，打不开则静默失败。
+// 玄铁 文件.写 为覆盖语义；追加需先 文件.读 再拼接写回（M1 实现），本版先定接口。
+
+// 追加一行日志到 log.txt（对照 debug::logOutput，静默失败不影响主流程）
+// TODO(M1)：文件.读 现有内容 → 拼接新行 → 文件.写 回写；UTF-8。
+公 函 追加(文本: 字) {
+}
+
+// 记录程序启动时间（对照 debug::logProgramStartTime，YYYY-MM-DD HH:MM:SS）
+// TODO(M1)：取本地时间并格式化后交 追加。
+公 函 记录启动时间() {
+}

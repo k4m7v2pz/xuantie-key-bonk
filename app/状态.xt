@@ -1,0 +1,53 @@
+// 状态.xt — 全局共享状态（对照 C++ include/global.hpp 的 resource_manager）
+//
+// C++ 侧是 keybonk::global 单例（含 HWND/HHOOK/GDI+ 等 Win 专属句柄）；
+// 玄铁版只保留与业务逻辑相关的状态，Win 专属句柄（窗口/钩子/托盘/GDI+/COM）
+// 不搬运，待 macOS 输入/窗口方案落地后另建。
+//
+// 模块级 设 为模块私有，对外只暴露公 函 读写，对照 C++ 的加锁访问。
+
+// ── 静音开关（钩子层判断，不依赖音频库全局静音）──
+设 Mute = 假            // 键盘静音（对照 global.Mute）
+设 MuteMouse = 假       // 鼠标静音（对照 global.MuteMouse）
+
+// ── 窗口/界面状态（Win 专属，先留位，macOS 方案定后启用）──
+设 WindowPenetrate = 假 // 窗口穿透（对照 global.WindowPenetrate）
+设 minimum = 假         // 是否隐藏到托盘（对照 global.minimum）
+
+// ── 音频 ──
+设 audioLibPath = ""                 // 音频库目录（对照 global.audioLibPath，来自 config.ini [settings] lib）
+设 audioList = {}                    // vk码 → 预加载ID（对照 global.audioList: map<int,size_t>）
+设 audioPreloadReady = 假            // 预加载完成标志（对照 global.audioPreloadReady）
+
+// ── 静音开关读写 ──
+公 函 取键盘静音(): 逻辑 { 返 Mute }
+公 函 设键盘静音(开: 逻辑) { Mute = 开 }
+公 函 取鼠标静音(): 逻辑 { 返 MuteMouse }
+公 函 设鼠标静音(开: 逻辑) { MuteMouse = 开 }
+
+// ── 窗口状态读写（占位，随界面方案启用）──
+公 函 取窗口穿透(): 逻辑 { 返 WindowPenetrate }
+公 函 设窗口穿透(开: 逻辑) { WindowPenetrate = 开 }
+公 函 取最小化(): 逻辑 { 返 minimum }
+公 函 设最小化(开: 逻辑) { minimum = 开 }
+
+// ── 音频库路径 ──
+公 函 取音频库路径(): 字 { 返 audioLibPath }
+公 函 设音频库路径(路径: 字) { audioLibPath = 路径 }
+
+// ── 预加载表：登记 vk→预加载ID（对照 preloadAudio 里加锁写 global.audioList[key]=audioID）──
+公 函 登记预加载(vk: 整, 预加载ID: 整) {
+    audioList[vk] = 预加载ID
+}
+
+// 查 vk 对应的预加载ID；不存在返回 0（对照 audioList.find 未命中则不播放）
+公 函 查预加载(vk: 整): 整 {
+    若 audioList.包含?(vk) {
+        返 audioList[vk]
+    }
+    返 0
+}
+
+// ── 预加载完成标志（对照 audioPreloadReady.store/load）──
+公 函 预加载完成?(): 逻辑 { 返 audioPreloadReady }
+公 函 置预加载完成() { audioPreloadReady = 真 }
