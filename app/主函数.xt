@@ -1,36 +1,15 @@
 // 主函数.xt — KeyBonk 玄铁版入口（对照 C++ src/main.cpp 的 wWinMain 流程）
 //
-// 直译说明：Windows 专属环节（COM 初始化、注册窗口类、CreateWindowEx、GDI+、
-// SetWindowsHookExW 低级钩子、GetMessage 消息循环、托盘）在 macOS 无法照搬，
-// 下列以占位注释标出，待 CGEventTap / 渲染窗口主循环方案落地后替换；
-// 可移植流程（日志、读配置、预加载、状态装配）已按原顺序写出。
+// 当前阶段 = M2 窗口内降级版：渲染库开窗，点中窗口时按键/鼠标 → 静音判断 → 合成音反馈。
+// M3 全局 CGEventTap 待工具链支持自定义 C 桥 + CoreGraphics 链接后替换（见 /tmp 交接）。
+//
+// C++ 原流程对照（Windows 专属，占位保留）：
+//   1. 启动日志 logProgramStartTime            → 日志.记录启动时间()（占位）
+//   2. 读 config.ini（win-x/y/mute/mute-m/lib）→ 配置.加载()（占位，M1 补解析）
+//   3. 后台预加载音频 preloadAudio().detach()   → 扫描.预加载全部()（占位，M1 补枚举）
+//   4. SetWindowsHookExW 低级全局钩子           → M3 CGEventTap（工具链待支持）
+//   5. GetMessage 消息循环                      → 窗口.运行() 渲染主循环（当前）
 
-引 "./配置.xt" 予 配置
-引 "./扫描.xt" 予 扫描
-引 "./状态.xt" 予 状态
-引 "./日志.xt" 予 日志
+引 "./窗口.xt" 予 窗口
 
-示("════ KeyBonk 玄铁版（Windows 逻辑直译骨架）════")
-
-// ── 1. 启动日志（对照 logProgramStartTime）──
-日志.记录启动时间()
-
-// ── 2. 读 config.ini：win-x/win-y/mute/mute-m/[settings]lib（对照启动段 GetPrivateProfile*）──
-// 路径占位：C++ 用 GetExeRelativePath("./config.ini")；玄铁用 xt_self_path() 定位，M1 补。
-配置.加载("./config.ini")
-
-// ── 3. 预加载音频（对照 std::thread preloadAudio().detach()）──
-// TODO(M1)：异步{} 线程池内调 扫描.预加载全部(状态.取音频库路径())，避免阻塞启动；
-// 当前占位同步调用，预加载全部内部枚举完成后会 置预加载完成()。
-扫描.预加载全部(状态.取音频库路径())
-
-// ── 4. 输入钩子安装（Win 专属，占位）──
-// C++：SetWindowsHookExW(WH_KEYBOARD_LL, LowLevelKeyboardProc)、
-//       SetWindowsHookExW(WH_MOUSE_LL, LowLevelMouseProc)。
-// macOS 替换：CGEventTap + 辅助功能权限，回调转到 输入.键盘按下(vk) / 输入.鼠标按下()。
-// （本版不安装钩子，仅保留对接点。）
-
-// ── 5. 主循环（Win GetMessage 消息循环 / macOS 渲染主循环，占位）──
-// C++：while(GetMessage){ TranslateMessage; DispatchMessage; }
-// macOS：渲染库窗口主循环内处理事件；退出时 配置.保存(...) 落位置与静音、释放音频。
-示("骨架装配完成；钩子/窗口/主循环待平台层接入。")
+窗口.运行()
