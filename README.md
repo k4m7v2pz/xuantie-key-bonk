@@ -6,7 +6,7 @@
 
 # 发声键盘 - KeyBonk
 
-V 1.3.0.1 （基础版）
+V 1.4.0.0
 
 <br>
 <div>
@@ -16,12 +16,12 @@ V 1.3.0.1 （基础版）
     <img alt="platform" src="https://img.shields.io/badge/platform-Windows-blueviolet">
 </div>
 <div>
-    <img alt="license" src="https://img.shields.io/github/license/xiaoditx/KeyBonk">
-    <img alt="commit" src="https://img.shields.io/github/commit-activity/m/xiaoditx/KeyBonk">
+    <img alt="license" src="https://img.shields.io/github/license/k4m7v2pz/xuantie-key-bonk">
+    <img alt="commit" src="https://img.shields.io/github/commit-activity/m/k4m7v2pz/xuantie-key-bonk">
 </div>
 <div>
-    <img alt="stars" src="https://img.shields.io/github/stars/xiaoditx/KeyBonk?style=social">
-    <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/xiaoditx/KeyBonk/total?style=social">
+    <img alt="stars" src="https://img.shields.io/github/stars/k4m7v2pz/xuantie-key-bonk?style=social">
+    <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/k4m7v2pz/xuantie-key-bonk/total?style=social">
 </div>
 </div>
 <br>
@@ -46,7 +46,7 @@ V 1.3.0.1 （基础版）
 
 ### 安装
 
-软件安装包在[Release](https://github.com/xiaoditx/KeyBonk/releases)页面，请选择你想要的版本，推荐使用最新版的前一个版本
+软件安装包在[Release](https://github.com/k4m7v2pz/xuantie-key-bonk/releases)页面，请选择你想要的版本，推荐使用最新版的前一个版本
 
 软件仅支持Windows，提供64位和32位两个版本
 
@@ -87,17 +87,17 @@ lib=（你自己创建的文件夹路径比如.\bin\default）
 
 感谢社区的贡献者们（其实现在并没有）
 
-<a href="https://github.com/xiaoditx/keybonk/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=xiaoditx/keybonk" />
+<a href="https://github.com/k4m7v2pz/xuantie-key-bonk/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=k4m7v2pz/xuantie-key-bonk" />
 </a>
 
 ## 项目统计
 
-<a href="https://www.star-history.com/#xiaoditx/keybonk&type=date&legend=top-left">
+<a href="https://www.star-history.com/#k4m7v2pz/xuantie-key-bonk&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=xiaoditx/keybonk&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=xiaoditx/keybonk&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=xiaoditx/keybonk&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=k4m7v2pz/xuantie-key-bonk&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=k4m7v2pz/xuantie-key-bonk&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=k4m7v2pz/xuantie-key-bonk&type=date&legend=top-left" />
  </picture>
 </a>
 
